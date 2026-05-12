@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS generated files
+.DS_Store
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Storage and logs
+storage/uploads/*
+storage/logs/*
+!storage/uploads/.gitkeep
+!storage/logs/.gitkeep
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+
+
+# All other files
+__pycache__/
+*.pyc
+.env
+venv/
+storage/uploads/
+storage/logs/
+.DS_Store

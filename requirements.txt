@@ -1,0 +1,9 @@
+flask
+spacy
+nltk
+scikit-learn
+pdfplumber
+python-docx
+werkzeug
+pandas
+python-dotenv
