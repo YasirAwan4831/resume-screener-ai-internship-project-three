@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %}AI Resume Screener — Smart Job Matching{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+    <div class="hero-badge">
+        <span class="pulse-dot"></span> AI-Powered Analysis
+    </div>
+    <h1 class="hero-title">
+        Match Your Resume<br>
+        <span class="gradient-text">to Any Job in Seconds</span>
+    </h1>
+    <p class="hero-subtitle">
+        Upload your resume and paste a job description. Our NLP engine will extract skills,
+        calculate a match score, and reveal exactly what's missing.
+    </p>
+</div>
+
+<!-- ─── Upload Card ───────────────────────────────────────────────── -->
+<div class="card upload-card">
+
+    <form id="analyze-form" action="/analyze" method="POST" enctype="multipart/form-data" novalidate>
+
+        <!-- Job Description -->
+        <div class="form-group">
+            <label class="form-label" for="job_description">
+                <i class="fas fa-briefcase form-icon"></i>
+                Job Description
+            </label>
+            <textarea
+                id="job_description"
+                name="job_description"
+                class="form-textarea"
+                placeholder="Paste the full job description here…"
+                rows="8"
+                required
+            ></textarea>
+            <span class="form-hint">Tip: Include the full JD for best accuracy.</span>
+        </div>
+
+        <!-- Resume Upload -->
+        <div class="form-group">
+            <label class="form-label">
+                <i class="fas fa-file-arrow-up form-icon"></i>
+                Upload Resume
+            </label>
+
+            <div class="drop-zone" id="drop-zone">
+                <input
+                    type="file"
+                    name="resume"
+                    id="resume-input"
+                    accept=".pdf,.docx"
+                    required
+                    hidden
+                >
+                <div class="drop-zone-content" id="drop-zone-content">
+                    <div class="drop-icon-wrapper">
+                        <i class="fas fa-cloud-arrow-up drop-icon"></i>
+                    </div>
+                    <p class="drop-title">Drag &amp; drop your resume here</p>
+                    <p class="drop-sub">or <span class="drop-link" onclick="document.getElementById('resume-input').click()">browse files</span></p>
+                    <p class="drop-types">Accepted formats: <strong>PDF</strong> &amp; <strong>DOCX</strong> · Max 16 MB</p>
+                </div>
+            </div>
+
+            <!-- File preview strip (hidden until file chosen) -->
+            <div class="file-preview hidden" id="file-preview">
+                <i class="fas fa-file-check file-preview-icon"></i>
+                <span id="file-preview-name">resume.pdf</span>
+                <button type="button" class="file-remove-btn" id="file-remove-btn" title="Remove">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary" id="submit-btn">
+            <span class="btn-default-state">
+                <i class="fas fa-wand-magic-sparkles"></i>
+                Analyze Match
+            </span>
+            <span class="btn-loading-state hidden">
+                <span class="spinner"></span>
+                Analyzing…
+            </span>
+        </button>
+
+    </form>
+</div>
+
+<!-- ─── Feature Highlights ────────────────────────────────────────── -->
+<div class="features-row">
+    <div class="feature-item">
+        <div class="feature-icon"><i class="fas fa-file-lines"></i></div>
+        <h3>PDF &amp; DOCX</h3>
+        <p>Both formats supported with accurate text extraction</p>
+    </div>
+    <div class="feature-item">
+        <div class="feature-icon"><i class="fas fa-microchip"></i></div>
+        <h3>NLP Engine</h3>
+        <p>NLTK + TF-IDF vectorization for smart matching</p>
+    </div>
+    <div class="feature-item">
+        <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
+        <h3>Skill Gap Report</h3>
+        <p>Instantly see matched and missing skills side-by-side</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}

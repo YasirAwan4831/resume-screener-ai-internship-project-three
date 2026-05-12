@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block title %}Analysis Results — {{ results.filename }}{% endblock %}
+
+{% block content %}
+
+<!-- ─── Score Hero ────────────────────────────────────────────────── -->
+<div class="results-hero">
+    <p class="results-subtitle">Analysis complete for <strong>{{ results.filename }}</strong></p>
+    <h1 class="results-title">Your Match Report</h1>
+</div>
+
+<!-- ─── Score Ring Card ───────────────────────────────────────────── -->
+<div class="card score-card">
+    <div class="score-ring-wrapper">
+        <!-- SVG animated ring -->
+        <svg class="score-ring" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+            <circle class="ring-track" cx="80" cy="80" r="68"/>
+            <circle
+                class="ring-fill"
+                cx="80" cy="80" r="68"
+                id="score-ring-fill"
+                data-score="{{ results.score }}"
+            />
+        </svg>
+        <div class="score-center">
+            <span class="score-number" id="score-number">0</span>
+            <span class="score-percent">%</span>
+            <span class="score-label">Match</span>
+        </div>
+    </div>
+
+    <!-- Score badge -->
+    {% if results.score >= 75 %}
+        <div class="score-verdict verdict-great">
+            <i class="fas fa-trophy"></i> Excellent Match
+        </div>
+    {% elif results.score >= 50 %}
+        <div class="score-verdict verdict-ok">
+            <i class="fas fa-thumbs-up"></i> Good Match
+        </div>
+    {% elif results.score >= 25 %}
+        <div class="score-verdict verdict-low">
+            <i class="fas fa-chart-line"></i> Partial Match
+        </div>
+    {% else %}
+        <div class="score-verdict verdict-poor">
+            <i class="fas fa-circle-exclamation"></i> Low Match
+        </div>
+    {% endif %}
+
+    <!-- Stats bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-number">{{ results.total_resume_skills }}</span>
+            <span class="stat-label">Skills in Resume</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number">{{ results.total_jd_skills }}</span>
+            <span class="stat-label">Skills in JD</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number">{{ results.matched_skills|length }}</span>
+            <span class="stat-label">Matched</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number">{{ results.missing_skills|length }}</span>
+            <span class="stat-label">Missing</span>
+        </div>
+    </div>
+</div>
+
+<!-- ─── Skills Grid ────────────────────────────────────────────────── -->
+<div class="skills-grid">
+
+    <!-- Matched Skills -->
+    <div class="card skills-card">
+        <div class="skills-card-header">
+            <div class="skills-card-icon icon-success">
+                <i class="fas fa-circle-check"></i>
+            </div>
+            <div>
+                <h2 class="skills-card-title">Matched Skills</h2>
+                <p class="skills-card-count">{{ results.matched_skills|length }} found in your resume</p>
+            </div>
+        </div>
+        <div class="tags-container">
+            {% if results.matched_skills %}
+                {% for skill in results.matched_skills %}
+                    <span class="tag tag-matched">
+                        <i class="fas fa-check"></i> {{ skill }}
+                    </span>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-magnifying-glass empty-icon"></i>
+                    <p>No direct technical skill matches were found.<br>Try adding more technical keywords to your resume.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Missing Skills -->
+    <div class="card skills-card">
+        <div class="skills-card-header">
+            <div class="skills-card-icon icon-danger">
+                <i class="fas fa-triangle-exclamation"></i>
+            </div>
+            <div>
+                <h2 class="skills-card-title">Missing Requirements</h2>
+                <p class="skills-card-count">{{ results.missing_skills|length }} skills to acquire</p>
+            </div>
+        </div>
+        <div class="tags-container">
+            {% if results.missing_skills %}
+                {% for skill in results.missing_skills %}
+                    <span class="tag tag-missing">
+                        <i class="fas fa-plus"></i> {{ skill }}
+                    </span>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state empty-success">
+                    <i class="fas fa-star empty-icon"></i>
+                    <p>Perfect! Your resume covers all technical requirements in this job description.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+
+<!-- ─── Actions ───────────────────────────────────────────────────── -->
+<div class="actions-row">
+    <a href="/" class="btn btn-outline">
+        <i class="fas fa-arrow-left"></i> Analyze Another Resume
+    </a>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}
