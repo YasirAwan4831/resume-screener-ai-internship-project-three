@@ -1,0 +1,11 @@
+{
+    "technical_skills": [
+        "python", "java", "javascript", "c++", "c#", "ruby", "php", "swift", "kotlin", "go", "rust", "typescript",
+        "html", "css", "react", "angular", "vue", "next.js", "node.js", "express", "django", "flask", "spring boot", "laravel",
+        "postgresql", "mysql", "mongodb", "redis", "sqlite", "oracle", "sql server", "cassandra",
+        "aws", "azure", "google cloud", "docker", "kubernetes", "jenkins", "terraform", "ansible", "git", "github", "gitlab",
+        "tensorflow", "pytorch", "scikit-learn", "keras", "pandas", "numpy", "matplotlib", "seaborn", "nltk", "spacy", "opencv",
+        "machine learning", "deep learning", "nlp", "computer vision", "data science", "data analysis",
+        "rest api", "graphql", "microservices", "agile", "scrum", "jira", "linux", "unix", "bash", "shell scripting"
+    ]
+}
